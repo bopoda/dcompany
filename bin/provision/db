@@ -7,7 +7,7 @@ cd `cd -P "$( dirname "$0" )" && pwd`
 cd `git rev-parse --show-toplevel`
 
 DB_DIR=var/db
-TEST_DB_NAME=test
+TEST_DB_NAME=test__dcompany
 
 # set max_allowed_packet to 20M
 mysql -uroot -e'SET GLOBAL max_allowed_packet=41943040'
@@ -29,7 +29,7 @@ function import_data()
 {
 	echo "  Importing `basename $file`"
 
-	cat $file | mysql -h127.0.0.1 -uroot $DB;
+	bzcat -f $file | mysql -h127.0.0.1 -uroot $DB;
 }
 
 ls -1 $DB_DIR | while read DB; do
@@ -37,5 +37,5 @@ ls -1 $DB_DIR | while read DB; do
     echo "DROP DATABASE IF EXISTS $DB" | mysql -h127.0.0.1 -uroot;
     echo "CREATE DATABASE $DB" | mysql -h127.0.0.1 -uroot;
     ls -1 $DB_DIR/$DB/schema/*.sql | while read file; do import_table; done
-    ls -1 $DB_DIR/$DB/data/*.sql | while read file; do import_data; done
+    ls -1 $DB_DIR/$DB/data/*.sql.* | while read file; do import_data; done
 done;

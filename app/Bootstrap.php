@@ -7,6 +7,8 @@ class Bootstrap extends Core_Bootstrap
 		parent::init();
 		$this->initHelperUrl();
 		$this->initProfiler();
+
+		session_start();
 	}
 
 	protected function initHelperUrl()
