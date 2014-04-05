@@ -1,19 +1,29 @@
 <?php
 
 return array(
-    'test' => array(
-        'url' => '/',
-        'controller' => 'Controller_Test',
-        'action' => 'test'
-    ),
-	'auth' => array(
+	'main' => array(
+		'url' => '/',
+		'controller' => 'Controller_Orders',
+		'action' => 'main'
+	),
+	'user_auth' => array(
 		'url' => '/auth',
 		'controller' => 'Controller_User',
 		'action' => 'auth'
 	),
-	'logout' => array(
-		'url' => '/auth',
+	'user_logout' => array(
+		'url' => '/logout',
 		'controller' => 'Controller_User',
 		'action' => 'logout'
+	),
+	'orderAdd' => array(
+		'url' => '/order/add',
+		'controller' => 'Controller_Orders',
+		'action' => 'orderAdd'
+	),
+	'test' => array(
+		'url' => '/test',
+		'controller' => 'Controller_Test',
+		'action' => 'test'
 	),
 );

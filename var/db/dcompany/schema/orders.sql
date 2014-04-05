@@ -1,0 +1,21 @@
+CREATE TABLE `orders` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `added_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `user_id` int(10) unsigned NOT NULL,
+  `status` tinyint(1) NOT NULL DEFAULT '0',
+  `order` text,
+  `price` decimal(10,2) unsigned DEFAULT NULL,
+  `delivery_time` varchar(255) DEFAULT NULL,
+  `contacts` text,
+  `notes` text,
+  `delivery_address` text,
+  `supplier` varchar(255) DEFAULT NULL,
+  `purchase_price` decimal(10,2) unsigned DEFAULT NULL,
+  `sale_price` decimal(10,2) unsigned DEFAULT NULL,
+  `assembly_price` decimal(10,2) unsigned DEFAULT NULL,
+  `delivery price` decimal(10,2) unsigned DEFAULT NULL,
+  `fzn` decimal(10,2) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8

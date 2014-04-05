@@ -1,0 +1,2 @@
+Users: @all
+Orders: 1=1 ORDER BY id LIMIT 20

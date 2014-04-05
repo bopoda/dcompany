@@ -2,6 +2,10 @@
 
 final class Table_Users extends Dao_Table_MySQL
 {
+	const ROLE_MANAGER = 1;
+	const ROLE_SERVICE = 2;
+	const ROLE_ADMIN = 3;
+
 	/**
 	 * @return Table_Users
 	 */

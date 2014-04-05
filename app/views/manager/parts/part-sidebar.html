@@ -1,0 +1,49 @@
+<div class="sidebar" id="sidebar">
+	<ul class="nav nav-list">
+		<li>
+			<a href="/">
+				<i class="icon-dashboard"></i>
+				<span class="menu-text"> Главная </span>
+			</a>
+		</li>
+
+		<li>
+			<a href="#" class="dropdown-toggle">
+				<i class="icon-desktop"></i>
+				<span class="menu-text"> Заказы </span>
+
+				<b class="arrow icon-angle-down"></b>
+			</a>
+
+			<ul class="submenu">
+				<li>
+					<a href="#">
+						<i class="icon-double-angle-right"></i>
+						Ждут подтверждения
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						<i class="icon-double-angle-right"></i>
+						Ждут доставки
+					</a>
+				</li>
+
+				<li>
+					<a href="#">
+						<i class="icon-double-angle-right"></i>
+						Закрыты
+					</a>
+				</li>
+			</ul>
+		</li>
+
+		<li>
+			<a href="<?=Helper_Url::routeUrl('orderAdd');?>">
+				<i class="icon-edit"></i>
+				<span class="menu-text"> Добавить заказ </span>
+			</a>
+		</li>
+	</ul><!-- /.nav-list -->
+</div>

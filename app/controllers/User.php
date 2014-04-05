@@ -32,6 +32,6 @@ class Controller_User
 	{
 		Auth::instance()->logout();
 
-		return new Http_Response_Redirect(Helper_Url::routeUrl('auth'));
+		return new Http_Response_Redirect(Helper_Url::routeUrl('user_auth'));
 	}
 }
