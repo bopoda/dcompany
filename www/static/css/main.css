@@ -1,0 +1,7 @@
+body {
+    overflow-y: scroll;
+}
+
+#orders-editable .order-edit {
+    display: none;
+}

@@ -1,0 +1,120 @@
+<?php
+
+$this->useLayout(
+	'manager/layout.html',
+	array(
+		'title' => "Заказы: $this->status",
+		'user' => $this->user,
+	)
+);
+
+?>
+
+<div class="page-content">
+	<div class="page-header">
+		<h1>
+			Заказы
+			<small>
+				<i class="icon-double-angle-right"></i>
+				со статусом:
+				<span data-rel="tooltip" data-original-title="<?=Table_Orders::me()->getStatusDescription($this->status);?>" class="label label-<?=Helper_Order::getLabelByStatus($this->status);?>"><?=$this->status;?></span>
+			</small>
+		</h1>
+	</div>
+
+	<div class="row">
+		<div class="col-xs-12">
+
+			<table class="table table-stripped table-bordered" id="orders-editable">
+				<thead>
+				<tr>
+					<th>№</th>
+					<th>Статус</th>
+					<th>Заказ</th>
+					<th>Время выполнения</th>
+					<th>Контакты</th>
+					<th>Дополнительно</th>
+					<th>Адрес&nbsp;доставки</th>
+					<th>Продажа</th>
+					<th>Сборка</th>
+					<th>Доставка</th>
+					<th>ФЗП</th>
+				</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->orders as $order) { ?>
+					<tr data-orderId="<?=$order['id'];?>">
+						<td style="width:5px;">
+							<?=$order['id'];?>
+						</td>
+						<td style="width:10px;">
+							<div class="order-text"><span class="label label-<?=Helper_Order::getLabelByStatus($order['status_id']);?>"><?=Table_Orders::me()->getStatusByStatusId($order['status_id']);?></span></div>
+							<div class="order-edit">
+								<select name="status_id">
+									<?php foreach (Helper_Order::getAllowedUserStatuses() as $statusId => $status) { ?>
+										<option <?=$statusId == $order['status_id'] ? 'selected' : NULL; ?> value="<?=$order['status_id'];?>"><?=$status;?></option>
+									<?php } ?>
+								</select>
+							</div>
+						</td>
+						<td>
+							<div class="order-text"><?=nl2br(Content_Text::escape($order['order']));?></div>
+							<div class="order-edit"><textarea style="width:400px;" class="autosize" name="order" placeholder="Подробное описание заказа"><?=$order['order'];?></textarea></div>
+						</td>
+						<td>
+							<div class="order-text"><?=nl2br(Content_Text::escape($order['delivery_time']));?></div>
+							<div class="order-edit"><textarea class="autosize" name="delivery_time" placeholder="Время исполнения"><?=$order['delivery_time'];?></textarea></div>
+						</td>
+						<td>
+							<div class="order-text"><?=nl2br(Content_Text::escape($order['contacts']));?></div>
+							<div class="order-edit"><textarea class="autosize" name="contacts" placeholder="Контакты"><?=$order['contacts'];?></textarea></div>
+						</td>
+						<td>
+							<div class="order-text"><?=nl2br(Content_Text::escape($order['notes']));?></div>
+							<div class="order-edit"><textarea class="autosize" name="notes" placeholder="Другие заметки"><?=$order['notes'];?></textarea></div>
+						</td>
+						<td>
+							<div class="order-text"><?=nl2br(Content_Text::escape($order['delivery_address']));?></div>
+							<div class="order-edit"><textarea class="autosize" name="delivery_address" placeholder="Адрес доставки"><?=$order['delivery_address'];?></textarea>
+						</td>
+						<td style="width:15px;">
+							<div class="order-text"><?=(int)$order['sale_price'];?></div>
+							<div class="order-edit"><input type="text" value="<?=(int)$order['sale_price'];?>" name="sale_price" class="input-mini spinner-input form-control" id="spinner-sale_price<?=$order['id'];?>"></div>
+						</td>
+						<td style="width:15px;">
+							<div class="order-text"><?=(int)$order['assembly_price'];?></div>
+							<div class="order-edit"><input type="text" value="<?=(int)$order['assembly_price'];?>" name="assembly_price" class="input-mini spinner-input form-control" id="spinner-assembly_price<?=$order['id'];?>"></div>
+						</td>
+						<td style="width:15px;">
+							<div class="order-text"><?=(int)$order['delivery_price'];?></div>
+							<div class="order-edit"><input type="text" value="<?=(int)$order['delivery_price'];?>" name="delivery_price" class="input-mini spinner-input form-control" id="spinner-delivery_price<?=$order['id'];?>"></div>
+						</td>
+						<td>
+							<div class="order-text"><?=Helper_Order::calculateFZP($order);?></div>
+						</td>
+					</tr>
+				<?php } ?>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		<?php foreach ($this->orders as $order) { ?>
+		$('#spinner-assembly_price<?=$order['id'];?>').ace_spinner({value:<?=(int)$order['assembly_price'];?>,min:0,max:999,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+				});
+
+		$('#spinner-delivery_price<?=$order['id'];?>').ace_spinner({value:<?=(int)$order['delivery_price'];?>,min:0,max:999,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+				});
+
+		$('#spinner-sale_price<?=$order['id'];?>').ace_spinner({value:<?=(int)$order['sale_price'];?>,min:0,max:9999,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+				});
+
+		<?php } ?>
+	});
+</script>

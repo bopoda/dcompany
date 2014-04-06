@@ -16,10 +16,14 @@
 	<link href="/static/css/main.css" rel="stylesheet">
 
     <script src="/static/js/jquery-2.1.0.min.js"></script>
+    <script src="/static/js/jquery.autosize.min.js"></script>
+    <script src="/static/js/fuelux.spinner.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
-	<script src="/static/js/ace.min.js"></script>
-	<script src="/static/js/main.js"></script>
 
+	<script src="/static/js/ace-elements.min.js"></script>
+	<script src="/static/js/ace.min.js"></script>
+
+	<script src="/static/js/main.js"></script>
 </head>
 <body>
 
@@ -37,78 +41,78 @@
 
 		<div class="navbar-header pull-right" role="navigation">
 		<ul class="nav ace-nav">
-		<li class="grey">
-			<a data-toggle="dropdown" class="dropdown-toggle" href="#">
-				<i class="icon-tasks"></i>
-				<span class="badge badge-grey">4</span>
-			</a>
+		<!--<li class="grey">-->
+			<!--<a data-toggle="dropdown" class="dropdown-toggle" href="#">-->
+				<!--<i class="icon-tasks"></i>-->
+				<!--<span class="badge badge-grey">4</span>-->
+			<!--</a>-->
 
-			<ul class="dropdown-navbar dropdown-menu dropdown-caret dropdown-close pull-right">
-				<li class="dropdown-header">
-					<i class="icon-ok"></i>
-					4 Tasks to complete
-				</li>
+			<!--<ul class="dropdown-navbar dropdown-menu dropdown-caret dropdown-close pull-right">-->
+				<!--<li class="dropdown-header">-->
+					<!--<i class="icon-ok"></i>-->
+					<!--4 Tasks to complete-->
+				<!--</li>-->
 
-				<li>
-					<a href="#">
-						<div class="clearfix">
-							<span class="pull-left">Software Update</span>
-							<span class="pull-right">65%</span>
-						</div>
+				<!--<li>-->
+					<!--<a href="#">-->
+						<!--<div class="clearfix">-->
+							<!--<span class="pull-left">Software Update</span>-->
+							<!--<span class="pull-right">65%</span>-->
+						<!--</div>-->
 
-						<div class="progress progress-mini ">
-							<div style="width:65%" class="progress-bar "></div>
-						</div>
-					</a>
-				</li>
+						<!--<div class="progress progress-mini ">-->
+							<!--<div style="width:65%" class="progress-bar "></div>-->
+						<!--</div>-->
+					<!--</a>-->
+				<!--</li>-->
 
-				<li>
-					<a href="#">
-						<div class="clearfix">
-							<span class="pull-left">Hardware Upgrade</span>
-							<span class="pull-right">35%</span>
-						</div>
+				<!--<li>-->
+					<!--<a href="#">-->
+						<!--<div class="clearfix">-->
+							<!--<span class="pull-left">Hardware Upgrade</span>-->
+							<!--<span class="pull-right">35%</span>-->
+						<!--</div>-->
 
-						<div class="progress progress-mini ">
-							<div style="width:35%" class="progress-bar progress-bar-danger"></div>
-						</div>
-					</a>
-				</li>
+						<!--<div class="progress progress-mini ">-->
+							<!--<div style="width:35%" class="progress-bar progress-bar-danger"></div>-->
+						<!--</div>-->
+					<!--</a>-->
+				<!--</li>-->
 
-				<li>
-					<a href="#">
-						<div class="clearfix">
-							<span class="pull-left">Unit Testing</span>
-							<span class="pull-right">15%</span>
-						</div>
+				<!--<li>-->
+					<!--<a href="#">-->
+						<!--<div class="clearfix">-->
+							<!--<span class="pull-left">Unit Testing</span>-->
+							<!--<span class="pull-right">15%</span>-->
+						<!--</div>-->
 
-						<div class="progress progress-mini ">
-							<div style="width:15%" class="progress-bar progress-bar-warning"></div>
-						</div>
-					</a>
-				</li>
+						<!--<div class="progress progress-mini ">-->
+							<!--<div style="width:15%" class="progress-bar progress-bar-warning"></div>-->
+						<!--</div>-->
+					<!--</a>-->
+				<!--</li>-->
 
-				<li>
-					<a href="#">
-						<div class="clearfix">
-							<span class="pull-left">Bug Fixes</span>
-							<span class="pull-right">90%</span>
-						</div>
+				<!--<li>-->
+					<!--<a href="#">-->
+						<!--<div class="clearfix">-->
+							<!--<span class="pull-left">Bug Fixes</span>-->
+							<!--<span class="pull-right">90%</span>-->
+						<!--</div>-->
 
-						<div class="progress progress-mini progress-striped active">
-							<div style="width:90%" class="progress-bar progress-bar-success"></div>
-						</div>
-					</a>
-				</li>
+						<!--<div class="progress progress-mini progress-striped active">-->
+							<!--<div style="width:90%" class="progress-bar progress-bar-success"></div>-->
+						<!--</div>-->
+					<!--</a>-->
+				<!--</li>-->
 
-				<li>
-					<a href="#">
-						See tasks with details
-						<i class="icon-arrow-right"></i>
-					</a>
-				</li>
-			</ul>
-		</li>
+				<!--<li>-->
+					<!--<a href="#">-->
+						<!--See tasks with details-->
+						<!--<i class="icon-arrow-right"></i>-->
+					<!--</a>-->
+				<!--</li>-->
+			<!--</ul>-->
+		<!--</li>-->
 
 		<!--<li class="purple">-->
 			<!--<a data-toggle="dropdown" class="dropdown-toggle" href="#">-->
@@ -250,7 +254,7 @@
 			<a data-toggle="dropdown" href="#" class="dropdown-toggle">
 				<img class="nav-user-photo" src="/static/img/user.jpg" alt="User's Photo">
 							<span class="user-info">
-								<small>Welcome,</small>
+								<small><?=Table_Users::me()->getRoleTitleByRoleId($this->user['role_id']);?>,</small>
 								<?=$this->user['username'];?>
 							</span>
 				<i class="icon-caret-down"></i>
@@ -294,10 +298,10 @@
 
 		<div class="main-container-inner">
 			<?= $this->renderPartial(
-			'manager/parts/part-sidebar.html',
-			array(
-
-			)
+				'manager/parts/part-sidebar.html',
+				array(
+					'user' => $this->user,
+				)
 			);?>
 			<div class="main-content">
 				<?= $this->getInnerContent(); ?>

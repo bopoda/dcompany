@@ -16,34 +16,52 @@
 			</a>
 
 			<ul class="submenu">
-				<li>
-					<a href="#">
-						<i class="icon-double-angle-right"></i>
-						Ждут подтверждения
-					</a>
-				</li>
+				<?php if ($this->user['role_id'] == Table_Users::ROLE_MANAGER) { ?>
+					<li>
+						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'private'));?>">
+							<i class="icon-double-angle-right"></i>
+							Ждут подтверждения
+						</a>
+					</li>
 
-				<li>
-					<a href="#">
-						<i class="icon-double-angle-right"></i>
-						Ждут доставки
-					</a>
-				</li>
+					<li>
+						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'pending'));?>">
+							<i class="icon-double-angle-right"></i>
+							Ждут доставки
+						</a>
+					</li>
 
-				<li>
-					<a href="#">
-						<i class="icon-double-angle-right"></i>
-						Закрыты
-					</a>
-				</li>
+					<li>
+						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'closed'));?>">
+							<i class="icon-double-angle-right"></i>
+							Закрыты
+						</a>
+					</li>
+				<?php } elseif ($this->user['role_id'] == Table_Users::ROLE_SERVICE) { ?>
+					<li>
+						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'pending'));?>">
+							<i class="icon-double-angle-right"></i>
+							Ждут доставки
+						</a>
+					</li>
+
+					<li>
+						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'closed'));?>">
+							<i class="icon-double-angle-right"></i>
+							Закрыты
+						</a>
+					</li>
+				<?php } ?>
 			</ul>
 		</li>
 
-		<li>
-			<a href="<?=Helper_Url::routeUrl('orderAdd');?>">
-				<i class="icon-edit"></i>
-				<span class="menu-text"> Добавить заказ </span>
-			</a>
-		</li>
+		<?php if ($this->user['role_id'] != Table_Users::ROLE_SERVICE) { ?>
+			<li>
+				<a href="<?=Helper_Url::routeUrl('orderAdd');?>">
+					<i class="icon-edit"></i>
+					<span class="menu-text"> Добавить заказ </span>
+				</a>
+			</li>
+		<?php } ?>
 	</ul><!-- /.nav-list -->
 </div>

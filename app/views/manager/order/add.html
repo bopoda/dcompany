@@ -13,64 +13,98 @@ $this->useLayout(
 <div class="page-content">
 	<div class="page-header">
 		<h1>
-			Добавление заказа
-			<small>
-				<i class="icon-double-angle-right"></i>
-				может быть что то еще
-			</small>
+			Добавление нового заказа
 		</h1>
 	</div><!-- /.page-header -->
 
 	<div class="row">
-		<form class="form-horizontal" role="form">
+		<div class="col-xs-12">
 
-			<div class="form-group">
-				<label class="col-sm-3 control-label no-padding-right">Input with Icon</label>
+			<form class="form-inline" method="post" role="form">
+				<table class="table">
+					<thead>
+					<tr>
+						<th>Заказ</th>
+						<th>Время выполнения</th>
+						<th>Контакты</th>
+						<th>Дополнительно</th>
+						<th>Адрес&nbsp;доставки</th>
+						<th>Продажа</th>
+						<th>Сборка</th>
+						<th>Доставка</th>
+						<th>ФЗП</th>
+					</tr>
+					</thead>
+					<tbody>
+					<tr>
+						<td>
+							<textarea style="width:400px;"  class="autosize" name="order" placeholder="Подробное описание заказа"></textarea>
+						</td>
+						<td>
+							<textarea class="autosize" name="delivery_time" placeholder="Время исполнения"></textarea>
+						</td>
+						<td>
+							<textarea class="autosize" name="contacts" placeholder="Контакты"></textarea>
+						</td>
+						<td>
+							<textarea class="autosize" name="notes" placeholder="Другие заметки"></textarea>
+						</td>
+						<td>
+							<textarea class="autosize" name="delivery_address" placeholder="Адрес доставки"></textarea>
+						</td>
+						<td width="15px">
+							<input type="text" value="0" name="assembly_price" class="input-mini spinner-input form-control" id="spinner-sale_price">
+						</td>
+						<td width="15px">
+							<input type="text" value="0"  name="assembly_price" class="input-mini spinner-input form-control" id="spinner-assembly_price">
+						</td>
+						<td width="15px">
+							<input type="text" value="0" name="delivery_price" class="input-mini spinner-input form-control" id="spinner-delivery_price">
+						</td>
+						<td>
+							0
+						</td>
+					</tr>
+					</tbody>
+				</table>
 
-				<div class="col-sm-9">
-					<span class="input-icon">
-						<input type="text" id="form-field-icon-1">
-						<i class="icon-leaf blue"></i>
-					</span>
+				<?=Messages::view();?>
 
-					<span class="input-icon input-icon-right">
-						<input type="text" id="form-field-icon-2">
-						<i class="icon-leaf green"></i>
-					</span>
-				</div>
-			</div>
+				<div class="clearfix form-actions">
+					<div class="col-md-offset-3 col-md-9">
+						<button class="btn submit btn-info" type="submit">
+							<i class="icon-ok bigger-110"></i>
+							Добавить
+						</button>
 
-			<div class="form-group">
-				<label class="col-sm-3 control-label no-padding-right" for="form-field-6">Tooltip and help button</label>
-
-				<div class="col-sm-9">
-					<input data-rel="tooltip" type="text" id="form-field-6" placeholder="Tooltip on hover" title="" data-placement="bottom" data-original-title="Hello Tooltip!">
-					<span class="help-button" data-rel="popover" data-trigger="hover" data-placement="left" data-content="More details." title="" data-original-title="Popover on hover">?</span>
-				</div>
-			</div>
-
-			<div class="clearfix form-actions">
-				<div class="col-md-offset-3 col-md-9">
-					<button class="btn btn-info" type="button">
-						<i class="icon-ok bigger-110"></i>
-						Добавить
-					</button>
-
-					&nbsp; &nbsp; &nbsp;
-					<button class="btn" type="reset">
-						<i class="icon-undo bigger-110"></i>
+						&nbsp; &nbsp; &nbsp;
+						<button class="btn" type="reset">
+							<i class="icon-undo bigger-110"></i>
 							Сбросить
-					</button>
+						</button>
+					</div>
 				</div>
-			</div>
+			</form>
 
-		</form>
+		</div>
 	</div>
 </div>
 
 <script type="text/javascript">
-	jQuery(function($) {
-		$('[data-rel=tooltip]').tooltip({container:'body'});
-		$('[data-rel=popover]').popover({container:'body'});
+	$(document).ready(function(){
+		$('#spinner-assembly_price').ace_spinner({value:0,min:0,max:999,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+//					alert(this.value)
+				});
+
+		$('#spinner-delivery_price').ace_spinner({value:0,min:0,max:999,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+//					alert(this.value)
+				});
+
+		$('#spinner-sale_price').ace_spinner({value:0,min:0,max:9999,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+				.on('change', function(){
+//					alert(this.value)
+				});
 	});
 </script>

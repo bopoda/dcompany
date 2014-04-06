@@ -21,6 +21,16 @@ return array(
 		'controller' => 'Controller_Orders',
 		'action' => 'orderAdd'
 	),
+	'ordersByStatus' => array(
+		'url' => '/orders/list/status=(private|pending|closed)',
+		'controller' => 'Controller_Orders',
+		'action' => 'ordersByStatus'
+	),
+	'ajaxOrderEditField' => array(
+		'url' => '/ajax/order/editField',
+		'controller' => 'Controller_Orders',
+		'action' => 'ajaxOrderEditField'
+	),
 	'test' => array(
 		'url' => '/test',
 		'controller' => 'Controller_Test',

@@ -29,4 +29,24 @@ final class Table_Users extends Dao_Table_MySQL
 		return $this->fetchRowBy('email', $id);
 	}
 
+	public function getRoleTitleByRoleId($roleId)
+	{
+		switch ($roleId) {
+			case self::ROLE_MANAGER:
+				return 'менеджер';
+				break;
+
+			case self::ROLE_SERVICE:
+				return 'сервисный центр';
+				break;
+
+			case self::ROLE_ADMIN:
+				return 'admin';
+				break;
+
+			default:
+				return NULL;
+		}
+	}
+
 }

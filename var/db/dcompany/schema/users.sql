@@ -4,6 +4,7 @@ CREATE TABLE `users` (
   `username` varchar(32) NOT NULL DEFAULT '',
   `password_md5` char(32) NOT NULL,
   `role_id` tinyint(1) NOT NULL DEFAULT '1',
+  `avatar` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `email` (`email`)
-) ENGINE=MyISAM  DEFAULT CHARSET=utf8
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8
