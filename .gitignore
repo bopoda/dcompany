@@ -1,0 +1,6 @@
+.idea
+var/lib/*
+var/log/*
+var/run/*
+var/tmp/*
+!.keepdir
