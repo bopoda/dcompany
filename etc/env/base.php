@@ -3,7 +3,7 @@
 // base config is ready for production
 
 return array(
-	'displayErrors' => false,
+	'displayErrors' => true,
 
 	'enableTransparentCache' => false,
 	'profilerEnabled' => false,
@@ -17,14 +17,14 @@ return array(
 	'db' => array(
 		'db.master' => array(
 			'adapter' => 'mysql',
-			'host' => '127.0.0.1',
+			'host' => 'localhost',
 			'name' => 'jekaby_dcompany',
 			'username' => 'jekaby',
 			'password' => 'vU8ApAha7enUpumA',
 		),
 		'db.slave' => array(
 			'adapter' => 'mysql',
-			'host' => '127.0.0.1',
+			'host' => 'localhost',
 			'name' => 'jekaby_dcompany',
 			'username' => 'jekaby',
 			'password' => 'vU8ApAha7enUpumA',
@@ -48,13 +48,13 @@ return array(
 	'storage' => array(
 		'cache' => array(
 			'adapter'  => 'memcache',
-			'host'     => '74.117.181.202',
+			'host'     => 'localhost',
 			'port'     => '11211',
 		),
 		'datahash' => array(
 			'adapter'  => 'memcache',
-			'host'     => '74.117.181.202',
-			'port'     => '21201',
+			'host'     => 'localhost',
+			'port'     => '11211',
 		),
 	),
 
@@ -77,10 +77,10 @@ return array(
 
 	'defaultQueueServer' => array(
 		'adapter' => 'PeclAmqp',
-		'host' => '74.117.181.202',
+		'host' => '127.0.0.1',
 		'port' => '5672',
 		'username' => 'guest',
-		'password' => '42',
+		'password' => 'guest',
 		'vhost' => '/',
 	),
 

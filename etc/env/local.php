@@ -36,15 +36,6 @@ return array(
 		),
 	),
 
-	'defaultQueueServer' => array(
-		'adapter' => 'PeclAmqp',
-		'host' => '127.0.0.1',
-		'port' => '5672',
-		'username' => 'guest',
-		'password' => 'guest',
-		'vhost' => '/',
-	),
-
 	'internals' => array(
 		'http-timeout' => 30,
 	),
