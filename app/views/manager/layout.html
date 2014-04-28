@@ -12,6 +12,7 @@
 
 	<link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="/static/css/ace.min.css" rel="stylesheet">
+    <!--<link href="/static/css/ace-rtl.min.css" rel="stylesheet">-->
 	<link href="/static/css/font-awesome.min.css" rel="stylesheet">
 	<link href="/static/css/main.css" rel="stylesheet">
 
@@ -20,15 +21,29 @@
     <script src="/static/js/fuelux.spinner.min.js"></script>
     <script src="/static/bootstrap/js/bootstrap.min.js"></script>
 
-	<script src="/static/js/ace-elements.min.js"></script>
+
+
+    <script src="/static/js/ace-elements.min.js"></script>
 	<script src="/static/js/ace.min.js"></script>
+
+    <!-- ace settings handler -->
+    <!--<script src="/static/js/ace-extra.min.js"></script>-->
 
 	<script src="/static/js/main.js"></script>
 </head>
-<body>
+<body class="no-skin">
 
 <div class="navbar navbar-default" id="navbar">
+    <script type="text/javascript">
+        try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+    </script>
 	<div class="navbar-container" id="navbar-container">
+        <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler">
+            <span class="sr-only">Toggle sidebar</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
 		<div class="navbar-header pull-left">
 			<a href="/" class="navbar-brand">
 				<small>
@@ -294,20 +309,19 @@
 </div>
 
 <div class="main-container" id="main-container">
-	<div class="main-container-inner">
+    <script type="text/javascript">
+        try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+    </script>
 
-		<div class="main-container-inner">
-			<?= $this->renderPartial(
-				'manager/parts/part-sidebar.html',
-				array(
-					'user' => $this->user,
-				)
-			);?>
-			<div class="main-content">
-				<?= $this->getInnerContent(); ?>
-			</div>
-		</div>
-	</div>
+    <?= $this->renderPartial(
+        'manager/parts/part-sidebar.html',
+        array(
+            'user' => $this->user,
+        )
+    );?>
+    <div class="main-content">
+        <?= $this->getInnerContent(); ?>
+    </div>
 </div>
 
 </body>
