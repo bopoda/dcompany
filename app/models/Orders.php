@@ -63,12 +63,26 @@ final class Table_Orders extends Dao_Table_MySQL
 
 	public function fetchByStatusIds(array $statusIds)
 	{
-		return $this->getAdapter()->select(
+ 		return $this->getAdapter()->select(
 			'SELECT * FROM ?#
 				WHERE status_id IN (?a)
 				ORDER BY id DESC',
 			$this->getTableName(),
 			$statusIds
+		);
+	}
+
+	public function fetchMonthlyFzpByUserId($userId)
+	{
+		return $this->getAdapter()->selectCell(
+			'SELECT SUM(fzp) FROM ?# 
+				WHERE user_id = ?d
+				AND delivery_date >= ?
+				AND status_id = ?d',
+			$this->getTableName(),
+			$userId,
+			date('Y-m-') . '01', // начало текущего месяца
+			self::STATUS_CLOSED
 		);
 	}
 
