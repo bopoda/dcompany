@@ -5,52 +5,52 @@
 	<ul class="nav nav-list">
 		<li>
 			<a href="/">
-				<i class="icon-dashboard"></i>
+				<i class="menu-icon fa fa-tachometer"></i>
 				<span class="menu-text"> Главная </span>
 			</a>
+			<b class="arrow"></b>
 		</li>
 
-		<li>
+		<li class="hsub">
 			<a href="#" class="dropdown-toggle">
-				<i class="icon-desktop"></i>
+				<i class="menu-icon fa fa-desktop"></i>
 				<span class="menu-text"> Заказы </span>
-
-				<b class="arrow icon-angle-down"></b>
+				<b class="arrow fa fa-angle-down"></b>
 			</a>
 
 			<ul class="submenu">
 				<?php if ($this->user['role_id'] == Table_Users::ROLE_MANAGER) { ?>
 					<li>
 						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'private'));?>">
-							<i class="icon-double-angle-right"></i>
+							<b class="arrow"></b>
 							Ждут подтверждения
 						</a>
 					</li>
 
 					<li>
 						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'pending'));?>">
-							<i class="icon-double-angle-right"></i>
+							<b class="arrow"></b>
 							Ждут доставки
 						</a>
 					</li>
 
 					<li>
 						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'closed'));?>">
-							<i class="icon-double-angle-right"></i>
+							<b class="arrow"></b>
 							Закрыты
 						</a>
 					</li>
 				<?php } elseif ($this->user['role_id'] == Table_Users::ROLE_SERVICE) { ?>
 					<li>
 						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'pending'));?>">
-							<i class="icon-double-angle-right"></i>
+							<b class="arrow"></b>
 							Ждут доставки
 						</a>
 					</li>
 
 					<li>
 						<a href="<?=Helper_Url::routeUrl('ordersByStatus', array('status' => 'closed'));?>">
-							<i class="icon-double-angle-right"></i>
+							<b class="arrow"></b>
 							Закрыты
 						</a>
 					</li>
@@ -61,10 +61,16 @@
 		<?php if ($this->user['role_id'] != Table_Users::ROLE_SERVICE) { ?>
 			<li>
 				<a href="<?=Helper_Url::routeUrl('orderAdd');?>">
-					<i class="icon-edit"></i>
+					<i class="menu-icon fa fa-pencil-square-o"></i>
 					<span class="menu-text"> Добавить заказ </span>
 				</a>
 			</li>
 		<?php } ?>
 	</ul><!-- /.nav-list -->
+	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+		<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+	</div>
+	<script type="text/javascript">
+		try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+	</script>
 </div>

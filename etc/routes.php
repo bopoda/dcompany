@@ -26,10 +26,15 @@ return array(
 		'controller' => 'Controller_Orders',
 		'action' => 'ordersByStatus'
 	),
-	'ajaxOrderEditField' => array(
-		'url' => '/ajax/order/editField',
+//	'ajaxOrderEditField' => array(
+//		'url' => '/ajax/order/editField',
+//		'controller' => 'Controller_Orders',
+//		'action' => 'ajaxOrderEditField'
+//	),
+	'ajaxAddOrderHtml' => array(
+		'url' => '/ajax/order/addOrderHtml',
 		'controller' => 'Controller_Orders',
-		'action' => 'ajaxOrderEditField'
+		'action' => 'ajaxAddOrderHtml'
 	),
 	'test' => array(
 		'url' => '/test',

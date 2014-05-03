@@ -89,6 +89,7 @@ class Controller_Orders
 		);
 	}
 
+	// ???
 	public function ajaxOrderEditField(Http_Request $request)
 	{
 		$orderId = $request->getPostVar('orderId');
@@ -110,6 +111,15 @@ class Controller_Orders
 		));
 	}
 
+	public function ajaxAddOrderHtml(Http_Request $request)
+	{
+		$view = Core_View::create('manager/order/parts/part-add-order.html');
+
+		return new Http_Response_Json(array(
+			'success' => true,
+			'html' => $view->render(),
+		));
+	}
 
 	private function addOrder($orderRow)
 	{

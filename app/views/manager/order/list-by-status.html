@@ -28,7 +28,10 @@ $this->useLayout(
 			<table class="table table-stripped table-bordered" id="orders-editable">
 				<thead>
 				<tr>
-					<th>№</th>
+					<th title="Дата исполнения">
+						<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+						Дата
+					</th>
 					<th>Статус</th>
 					<th>Заказ</th>
 					<th>Время выполнения</th>
@@ -44,9 +47,10 @@ $this->useLayout(
 				<tbody>
 				<?php foreach ($this->orders as $order) { ?>
 					<tr data-orderId="<?=$order['id'];?>">
-						<td style="width:5px;">
-							<?=$order['id'];?>
-						</td>
+                        <td style="width:5px; white-space:nowrap;">
+                            <span class="value"><?=$order['delivery_date'];?></span>
+                            <br/><br/><button class="btn btn-minier btn-purple btn-add-order">Добавить</button>
+                        </td>
 						<td style="width:10px;">
 							<div class="order-text"><span class="label label-<?=Helper_Order::getLabelByStatus($order['status_id']);?>"><?=Table_Orders::me()->getStatusByStatusId($order['status_id']);?></span></div>
 							<div class="order-edit">
