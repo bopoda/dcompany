@@ -50,7 +50,7 @@ class Controller_Orders
 		}
 
 		if ($request->getMethod() == 'POST') {
-			$this->addOrder($request->getPost());
+			$this->addOrderFromPostData($request->getPost());
 		}
 
 		$user = Auth::instance()->getUser();
@@ -121,16 +121,37 @@ class Controller_Orders
 		));
 	}
 
-	private function addOrder($orderRow)
+	private function addOrderFromPostData(array $data)
 	{
-		$orderRow = array_map(function($value){return trim($value);}, $orderRow);
-
-		if (!array_filter($orderRow)) {
+		if (!array_filter($data)) {
 			Messages::put('Нужно заполнить поля', Messages::DANGER);
 		}
 		else {
-			$orderRow['user_id'] = Auth::instance()->getUser()['id'];
+			$order = $this->makeOrderFromData($data);
+			$purchasePrice = 0;
+			foreach ($order as $orderPosition) {
+				$purchasePrice += $orderPosition['purchase-price'];
+			}
+
+			$orderRow = array(
+				'delivery_date' => @$data['delivery_date'] ? : NULL,
+				'added_at' => date('Y-m-d H:i:s'),
+				'user_id' => Auth::instance()->getUser()['id'],
+				'status_id' => Arr::get($data, 'status_id', Table_Orders::STATUS_PRIVATE),
+				'order' => serialize($order),
+				'purchase_price' => $purchasePrice,
+				'delivery_time' => Arr::get($data, 'delivery_time'),
+				'contacts' => Arr::get($data, 'contacts'),
+				'notes' => Arr::get($data, 'notes'),
+				'delivery_address' => Arr::get($data, 'delivery_address'),
+				'sale_price' => Arr::get($data, 'sale_price'),
+				'assembly_price' => Arr::get($data, 'assembly_price'),
+				'delivery_price' => Arr::get($data, 'delivery_price'),
+			);
+			$orderRow['fzp'] = Helper_Order::calculateFZP($orderRow);
+
 			$result = Table_Orders::me()->addOrder($orderRow);
+
 			if ($result) {
 				$statusId = Arr::get($orderRow, 'status_id', Table_Orders::STATUS_PRIVATE);
 				$status = Table_Orders::me()->getStatusByStatusId($statusId);
@@ -140,6 +161,28 @@ class Controller_Orders
 				Messages::put('Были ошибки. Заказ не добавлен.', Messages::DANGER);
 			}
 		}
+	}
+
+	private function makeOrderFromData(array $orderRow)
+	{
+		Assert::hasIndex($orderRow, 'order-hardware');
+		Assert::hasIndex($orderRow, 'order-purchase-price');
+		Assert::hasIndex($orderRow, 'order-supplier');
+
+		$order = array();
+
+		foreach ($orderRow['order-hardware'] as $index => $hardware) {
+			$hardware = trim($hardware);
+			if ($hardware) {
+				$order[] = array(
+					'hardware' => $hardware,
+					'purchase-price' => Arr::get($orderRow['order-purchase-price'], $index, ''),
+					'supplier' => Arr::get($orderRow['order-supplier'], $index, ''),
+				);
+			}
+		}
+
+		return $order;
 	}
 
 }

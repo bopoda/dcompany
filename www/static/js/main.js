@@ -1,4 +1,7 @@
 jQuery(function($) {
+
+    $('textarea[class*=autosize]').autosize({append: "\n"});
+
     // sidebar menu
     var pathname = window.location.pathname;
     $('#sidebar a').each(function() {
@@ -87,12 +90,49 @@ jQuery(function($) {
         var purchasePrice = recalculateTotalPurchase($orderTd);
     });
 
+    $('.order-enable-edit').click(function() {
+        var tr = $(this).parents('tr');
+
+        var $orderPosition = tr.find('td.order .order-edit .order-position');
+        // make order edit rows
+        tr.find('table.order-table tr').each(function(index) {
+            var hardware = $(this).find('.hardware').text();
+            var purchase = $(this).find('.purchase-price').text();
+            var supplier = $(this).find('.supplier').text();
+            if (index == 0) {
+                $orderPosition.find('.order-hardware').val(hardware);
+                $orderPosition.find('.order-purchase-price').val(purchase);
+                $orderPosition.find('.order-supplier').val(supplier);
+            }
+            else {
+                var $clone = $orderPosition.clone();
+                $clone.find('.order-hardware').val(hardware);
+                $clone.find('.order-purchase-price').val(purchase);
+                $clone.find('.order-supplier').val(supplier);
+
+                tr.find('td.order .order-edit').append($clone);
+            }
+        });
+
+        tr.find('td.delivery_time [name=delivery_time]').val(tr.find('td.delivery_time .order-text').text());
+        tr.find('td.contacts [name=contacts]').val(tr.find('td.contacts .order-text').text());
+        tr.find('td.notes [name=notes]').val(tr.find('td.notes .order-text').text());
+        tr.find('td.delivery_address [name=delivery_address]').val(tr.find('td.delivery_address .order-text').text());
+        tr.find('td.sale_price [name=sale_price]').val(tr.find('td.sale_price .order-text').text());
+        tr.find('td.sale_price [name=sale_price]').val(tr.find('td.sale_price .order-text').text());
+        tr.find('td.assembly_price [name=assembly_price]').val(tr.find('td.assembly_price .order-text').text());
+        tr.find('td.delivery_price [name=delivery_price]').val(tr.find('td.delivery_price .order-text').text());
+
+        tr.find('td').each(function() {
+            $(this).find('.order-text').hide();
+            $(this).find('.order-edit').show();
+        });
+    });
 });
 
+// пересчёт общей цены закупки по позициям
 function recalculateTotalPurchase($orderTd)
 {
-    console.log($orderTd);
-
     if (!$orderTd.hasClass('order')) {
         console.log('call recalculateTotalPurchase with wrong parameter');
         return;

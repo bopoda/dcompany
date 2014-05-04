@@ -5,14 +5,38 @@ body {
 #newOrder textarea, #newOrder input {
 	padding: 0;
 }
-#newOrder td.order textarea, #newOrder td.order input {
+#newOrder textarea, #newOrder input {
 	font-size: 12px;
+}
+#newOrder td.order textarea, #newOrder td.order input {
+	font-size: 11px;
 }
 #newOrder .action-buttons a {
 	margin-left: 1px;
 	margin-right: 1px;
 }
+#orders-editable textarea, #orders-editable input {
+	padding: 0;
+}
+#orders-editable textarea, #orders-editable input {
+	font-size: 12px;
+}
+#orders-editable td.order textarea, #orders-editable td.order input {
+	font-size: 11px;
+}
+#orders-editable .action-buttons a {
+	margin-left: 1px;
+	margin-right: 1px;
+}
 
-td.order input, td.order textarea{
+td.order input, td.order textarea {
 	float:left;
+}
+
+.table.order-table > thead > tr > th, .table.order-table > tbody > tr > th, .table.order-table > tfoot > tr > th, .table.order-table > thead > tr > td, .table.order-table > tbody > tr > td, .table.order-table > tfoot > tr > td {
+ 	padding: 1px;
+}
+
+#orders-editable .order-edit {
+	display: none;
 }

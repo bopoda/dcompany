@@ -36,59 +36,93 @@ $this->useLayout(
 					<th>Сборка</th>
 					<th>Доставка</th>
 					<th>ФЗП</th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
 				<?php foreach ($this->orders as $order) { ?>
 				<tr data-orderId="<?=$order['id'];?>">
-					<td style="width:5px; white-space:nowrap;">
+					<td style="width:5px; white-space:nowrap;" class="delivery_date">
 						<span class="value"><?=$order['delivery_date'];?></span>
 						<br/><br/><button class="btn btn-minier btn-purple btn-add-order">Добавить</button>
 					</td>
-					<td style="width:10px;">
+					<td style="width:10px;" class="status_id">
 						<div class="order-text"><span class="label label-<?=Helper_Order::getLabelByStatus($order['status_id']);?>"><?=Table_Orders::me()->getStatusByStatusId($order['status_id']);?></span></div>
+					</td>
+					<td class="order">
+						<div class="order-text">
+							<?php $orderPositions = @unserialize($order['order']); ?>
+							<?php if ($orderPositions) { ?>
+								<table class="table table-striped table-hover dataTable order-table">
+									<?php foreach ($orderPositions as $position) { ?>
+										<tr>
+											<td class="hardware"><?php echo $position['hardware']; ?></td>
+											<td class="purchase-price"><?php echo $position['purchase-price']; ?></td>
+											<td class="supplier"><?php echo $position['supplier']; ?></td>
+										</tr>
+									<?php } ?>
+								</table>
+							<?php } ?>
+						</div>
 						<div class="order-edit">
-							<select name="status_id">
-								<?php foreach (Helper_Order::getAllowedUserStatuses() as $statusId => $status) { ?>
-									<option <?=$statusId == $order['status_id'] ? 'selected' : NULL; ?> value="<?=$statusId;?>"><?=$status;?></option>
-								<?php } ?>
-							</select>
+							<div class="order-position" style="height: 23px; width:465px;display: block;">
+								<textarea name="order-hardware[]" class="order-hardware" placeholder="железка" style="width: 325px; height: 18px; resize: none;"></textarea>
+								<input type="text" value="" name="order-purchase-price[]" class="input-small order-purchase-price" placeholder="закупка" style="width:40px;margin-left: 2px; margin-right: 2px;">
+								<input type="text" value="" name="order-supplier[]" class="input-small order-supplier" placeholder="поставщик" style="width:50px;">
+								<a class="green" href="#" style="margin-left: 3px;padding-top: 2px;" onclick="$(this).parents('.order-position').after($(this).parents('.order-position').clone()); return false;">
+									<i class="ui-icon ace-icon fa fa-plus center bigger-100 blue"></i>
+								</a>
+								<a class="red" href="#" style="padding-top: 2px;" onclick="if ($(this).parents('td').find('.order-position').length > 1 ) {var td=$(this).parents('td'); $(this).parents('.order-position').remove(); recalculateTotalPurchase(td);} return false;">
+									<i class="ace-icon fa fa-trash-o bigger-100"></i>
+								</a>
+							</div>
 						</div>
 					</td>
-					<td>
-						<div class="order-text"><?=nl2br(Content_Text::escape($order['order']));?></div>
-						<div class="order-edit"><textarea style="width:400px;" class="autosize" name="order" placeholder="Подробное описание заказа"><?=$order['order'];?></textarea></div>
-					</td>
-					<td>
+					<td class="delivery_time">
 						<div class="order-text"><?=nl2br(Content_Text::escape($order['delivery_time']));?></div>
-						<div class="order-edit"><textarea class="autosize" name="delivery_time" placeholder="Время исполнения"><?=$order['delivery_time'];?></textarea></div>
+						<div class="order-edit"><textarea class="autosize" name="delivery_time" placeholder="Время исполнения"></textarea></div>
 					</td>
-					<td>
+					<td class="contacts">
 						<div class="order-text"><?=nl2br(Content_Text::escape($order['contacts']));?></div>
-						<div class="order-edit"><textarea class="autosize" name="contacts" placeholder="Контакты"><?=$order['contacts'];?></textarea></div>
+						<div class="order-edit"><textarea class="autosize" name="contacts" placeholder="Контакты"></textarea></div></div>
 					</td>
-					<td>
+					<td class="notes">
 						<div class="order-text"><?=nl2br(Content_Text::escape($order['notes']));?></div>
-						<div class="order-edit"><textarea class="autosize" name="notes" placeholder="Другие заметки"><?=$order['notes'];?></textarea></div>
+						<div class="order-edit"><textarea class="autosize" name="notes" placeholder="Другие заметки"></textarea></div>
 					</td>
-					<td>
+					<td class="delivery_address">
 						<div class="order-text"><?=nl2br(Content_Text::escape($order['delivery_address']));?></div>
-						<div class="order-edit"><textarea class="autosize" name="delivery_address" placeholder="Адрес доставки"><?=$order['delivery_address'];?></textarea>
+						<div class="order-edit"><textarea class="autosize" name="delivery_address" placeholder="Адрес доставки"></textarea></div>
 					</td>
-					<td style="width:15px;">
+					<td class="sale_price" style="width:15px;">
 						<div class="order-text"><?=(int)$order['sale_price'];?></div>
-						<div class="order-edit"><input type="text" value="<?=(int)$order['sale_price'];?>" name="sale_price" class="input-mini spinner-input form-control" id="spinner-sale_price<?=$order['id'];?>"></div>
+						<div class="order-edit"><input type="text" value="0" name="sale_price" class="input-mini spinner-input" style="width: 50px;"></div>
 					</td>
-					<td style="width:15px;">
+					<td class="assembly_price" style="width:15px;">
 						<div class="order-text"><?=(int)$order['assembly_price'];?></div>
-						<div class="order-edit"><input type="text" value="<?=(int)$order['assembly_price'];?>" name="assembly_price" class="input-mini spinner-input form-control" id="spinner-assembly_price<?=$order['id'];?>"></div>
+						<div class="order-edit"><input type="text" value="0"  name="assembly_price" class="input-mini spinner-input" style="width: 50px;"></div>
 					</td>
-					<td style="width:15px;">
+					<td class="delivery_price" style="width:15px;">
 						<div class="order-text"><?=(int)$order['delivery_price'];?></div>
-						<div class="order-edit"><input type="text" value="<?=(int)$order['delivery_price'];?>" name="delivery_price" class="input-mini spinner-input form-control" id="spinner-delivery_price<?=$order['id'];?>"></div>
+						<div class="order-edit"><input type="text" value="0" name="delivery_price" class="input-mini spinner-inputl" style="width: 50px;"></div>
 					</td>
 					<td>
 						<div class="order-text"><?=Helper_Order::calculateFZP($order);?></div>
+						<div class="order-edit"></div>
+					</td>
+					<td>
+						<div class="hidden-sm hidden-xs action-buttons" style="width: 8px;">
+							<div class="order-text">
+								<a class="blue order-enable-edit" href="#">
+									<i class="ace-icon fa fa-pencil bigger-130"></i>
+								</a>
+							</div>
+							<div class="order-edit">
+								<a class="green" href="#">
+									<i class="ace-icon fa fa-check bigger-130"></i>
+								</a>
+							</div>
+						</div>
 					</td>
 				</tr>
 				<?php } ?>

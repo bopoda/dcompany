@@ -9,7 +9,7 @@
 				</a>
 			</span>
 	</div>
-	<form role="form" method="post">
+	<form role="form" method="post" action="<?=Helper_Url::routeUrl('orderAdd');?>">
 		<table class="table">
 			<thead>
 			<tr>
@@ -40,11 +40,11 @@
 						</div>
 					</div>
 				</td>
-				<td class="order action-buttons" style="width: 530px;">
-					<div class="order-position" style="height: 23px;">
-						<textarea name="order-hardware[]" class="order-hardware" placeholder="железка" style="width: 330px; height: 19px; resize: none;"></textarea>
-						<input type="text" value="" name="order-purchase-price[]" class="input-small order-purchase-price" placeholder="закупка" style="width:50px;margin-left: 2px; margin-right: 2px;">
-						<input type="text" value="" name="order-supplier[]" class="input-small" placeholder="поставщик">
+				<td class="order action-buttons" style="width: 470px;">
+					<div class="order-position" style="height: 23px; width:465px;display: block;">
+						<textarea name="order-hardware[]" class="order-hardware" placeholder="железка" style="width: 325px; height: 18px; resize: none;"></textarea>
+						<input type="text" value="" name="order-purchase-price[]" class="input-small order-purchase-price" placeholder="закупка" style="width:40px;margin-left: 2px; margin-right: 2px;">
+						<input type="text" value="" name="order-supplier[]" class="input-small order-supplier" placeholder="поставщик" style="width:50px;">
 						<a class="green" href="#" style="margin-left: 3px;padding-top: 2px;" onclick="$(this).parents('.order-position').after($(this).parents('.order-position').clone()); return false;">
 							<i class="ui-icon ace-icon fa fa-plus center bigger-100 blue"></i>
 						</a>
@@ -53,29 +53,29 @@
 						</a>
 					</div>
 				</td>
-				<td>
+				<td style="width: 150px;">
 					<textarea class="autosize" name="delivery_time" placeholder="Время исполнения"></textarea>
 				</td>
-				<td>
+				<td style="width: 150px;">
 					<textarea class="autosize" name="contacts" placeholder="Контакты"></textarea>
 				</td>
-				<td>
+				<td style="width: 150px;">
 					<textarea class="autosize" name="notes" placeholder="Другие заметки"></textarea>
 				</td>
-				<td>
+				<td style="width: 150px;">
 					<textarea class="autosize" name="delivery_address" placeholder="Адрес доставки"></textarea>
 				</td>
 				<td width="15px">
-					<input type="text" value="0" name="assembly_price" class="input-mini spinner-input form-control" id="spinner-sale_price">
+					<input type="text" value="0" name="sale_price" class="input-mini spinner-input" id="spinner-sale_price" style="width: 50px;">
 				</td>
 				<td width="15px">
-					<input type="text" value="0"  name="assembly_price" class="input-mini spinner-input form-control" id="spinner-assembly_price">
+					<input type="text" value="0"  name="assembly_price" class="input-mini spinner-input" id="spinner-assembly_price" style="width: 50px;">
 				</td>
 				<td width="15px">
-					<input type="text" value="0" name="delivery_price" class="input-mini spinner-input form-control" id="spinner-delivery_price">
+					<input type="text" value="0" name="delivery_price" class="input-mini spinner-inputl" id="spinner-delivery_price" style="width: 50px;">
 				</td>
 				<td>
-					0
+					-
 				</td>
 			</tr>
 			</tbody>
