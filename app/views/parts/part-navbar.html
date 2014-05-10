@@ -60,7 +60,7 @@
 
 			<li class="light-blue">
 				<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-					<img class="nav-user-photo" src="/static/img/user.jpg" alt="User's Photo">
+					<img class="nav-user-photo" src="<?=Helper_User::getAvaSrc($this->user);?>" alt="<?=$this->user['username'];?>'s Photo">
 								<span class="user-info">
 									<small><?=Table_Users::me()->getRoleTitleByRoleId($this->user['role_id']);?>,</small>
 									<?=$this->user['username'];?>
@@ -77,7 +77,7 @@
 					</li>
 
 					<li>
-						<a href="#">
+						<a href="<?=Helper_Url::routeUrl('profile');?>">
 							<i class="ace-icon fa fa-user"></i>
 							Profile
 						</a>

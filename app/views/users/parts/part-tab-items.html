@@ -1,0 +1,38 @@
+<div class="clearfix">
+	<?php foreach ($this->users as $user) { ?>
+		<?php if ($user['role_id'] == $this->roleId) { ?>
+
+			<?php
+				$fio = trim($user['name'] . ' ' . $user['fam']);
+				if ($fio) {
+					$fio = ' (' . $fio .  ')';
+				}
+			?>
+
+			<div class="itemdiv memberdiv" style="width:200px;">
+				<div class="user">
+					<img alt="<?=$user['username'];?>'s avatar" src="/static/img/user.jpg">
+				</div>
+
+				<div class="body">
+					<div class="">
+						<?php if ($user['id'] == $this->user['id']) { ?>
+							<a href="<?=Helper_Url::routeUrl('profile');?>"><?=$user['username'];?><?=$fio;?></a>
+						<?php } else { ?>
+							<a href="#" onclick="return false;"><?=$user['username'];?><?=$fio;?></a>
+						<?php } ?>
+					</div>
+
+					<div class="time">
+						<i class="ace-icon fa fa-globe"></i>
+						<span class="green"><?=$user['email'];?></span>
+					</div>
+
+					<div>
+						<span class="label label-info label-sm"><?=Table_Users::me()->getRoleTitleByRoleId($user['role_id']);?></span>
+					</div>
+				</div>
+			</div>
+		<?php } ?>
+	<?php } ?>
+</div>

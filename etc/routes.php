@@ -16,6 +16,11 @@ return array(
 		'controller' => 'Controller_User',
 		'action' => 'logout'
 	),
+	'profile' => array(
+		'url' => '/profile',
+		'controller' => 'Controller_User',
+		'action' => 'profile',
+	),
 	'orderAdd' => array(
 		'url' => '/order/add',
 		'controller' => 'Controller_Orders',
@@ -41,10 +46,10 @@ return array(
 		'controller' => 'Controller_Orders',
 		'action' => 'ajaxOrderUpdate',
 	),
-	'usersInfo' => array(
+	'usersList' => array(
 		'url' => '/users/info',
 		'controller' => 'Controller_Users',
-		'action' => 'usersInfo',
+		'action' => 'usersList',
 	),
 	'test' => array(
 		'url' => '/test',

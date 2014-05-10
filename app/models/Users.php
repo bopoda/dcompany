@@ -29,6 +29,14 @@ final class Table_Users extends Dao_Table_MySQL
 		return $this->fetchRowBy('email', $id);
 	}
 
+	public function fetchAll()
+	{
+		return $this->getAdapter()->query(
+			'SELECT * FROM ?#',
+			$this->getTableName()
+		);
+	}
+
 	public function getRoleTitleByRoleId($roleId)
 	{
 		switch ($roleId) {

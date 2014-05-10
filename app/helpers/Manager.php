@@ -15,7 +15,10 @@ class Helper_Manager
 
 		$monthlyFzp = Table_Orders::me()->fetchMonthlyFzpByUserId($user['id']);
 
-		if ($monthlyFzp >= 1000) {
+		if ($monthlyFzp >= 2000) {
+			$minZp += 200;
+		}
+		elseif ($monthlyFzp >= 1000) {
 			$minZp += 100;
 		}
 
@@ -23,4 +26,5 @@ class Helper_Manager
 
 		return $minZp + $additionalZp;
 	}
+
 }

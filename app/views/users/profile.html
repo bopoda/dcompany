@@ -1,0 +1,105 @@
+<?php
+
+$this->useLayout(
+	'manager/layout.html',
+	array(
+		'title' => 'Мой профиль',
+		'user' => $this->user,
+	)
+);
+
+?>
+
+<div class="page-content">
+	<div class="row">
+
+		<div id="user-profile-1" class="user-profile row">
+			<div class="col-xs-12 col-sm-3 center">
+				<div>
+					<span class="profile-picture">
+						<img id="avatar" class="editable img-responsive editable-click editable-empty" alt="<?=$this->user['username'];?>'s Avatar" src="<?=Helper_User::getAvaSrc($this->user);?>" style="display: block;">
+					</span>
+
+					<div class="space-4"></div>
+
+					<div class="width-80 label label-info label-xlg arrowed-in arrowed-in-right">
+						<div class="inline position-relative">
+							<a href="#" class="user-title-label" onclick="return false;">
+								<i class="ace-icon fa fa-circle light-green"></i>
+								&nbsp;
+								<span class="white"><?=$this->user['name'];?> <?=$this->user['fam'];?></span>
+							</a>
+						</div>
+					</div>
+				</div>
+
+				<div class="space-6"></div>
+				<div class="hr hr16 dotted"></div>
+
+				<div class="profile-user-info profile-user-info-striped">
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Username </div>
+
+						<div class="profile-info-value">
+							<span class="editable editable-click" id="username"><?=$this->user['username'];?></span>
+						</div>
+					</div>
+					<div class="profile-info-row">
+						<div class="profile-info-name"> Email </div>
+
+						<div class="profile-info-value">
+							<span class="editable editable-click" id="email"><?=$this->user['email'];?></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-sm-7 infobox-container">
+
+				<div class="infobox infobox-pink">
+					<div class="infobox-icon">
+						<i class="ace-icon fa fa-shopping-cart"></i>
+					</div>
+
+					<div class="infobox-data">
+						<span class="infobox-data-number"><?=$this->totalUserOrdersCnt;?></span>
+						<div class="infobox-content">Добавлено заказов</div>
+					</div>
+				</div>
+
+				<div class="space-6"></div>
+
+				<div class="infobox infobox-blue infobox-small infobox-dark">
+					<div class="infobox-chart">
+						<span class="sparkline" data-values="3,4,2,3,4,4,2,2"></span>
+					</div>
+
+					<div class="infobox-data">
+						<div class="infobox-content"><?=date('M');?>&nbsp;<?=date('Y');?></div>
+						<div class="infobox-content">$<?=Helper_Manager::calculateMonthlyZp($this->user);?></div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+</div>
+
+<script src="/static/js/jquery.sparkline.min.js"></script>
+
+<script>
+	$('.sparkline').each(function(){
+		var $box = $(this).closest('.infobox');
+		var barColor = !$box.hasClass('infobox-dark') ? $box.css('color') : '#FFF';
+		$(this).sparkline('html',
+				{
+					tagValuesAttribute:'data-values',
+					type: 'bar',
+					barColor: barColor ,
+					chartRangeMin:$(this).data('min') || 0
+				});
+	});
+
+</script>
+
