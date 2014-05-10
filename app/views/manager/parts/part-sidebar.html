@@ -1,4 +1,4 @@
-<div class="sidebar responsive" id="sidebar">
+<div class="sidebar      h-sidebar                navbar-collapse collapse" id="sidebar">
     <script type="text/javascript">
         try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
     </script>
@@ -11,7 +11,7 @@
 			<b class="arrow"></b>
 		</li>
 
-		<li class="hsub">
+		<li class="hover hsub">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-desktop"></i>
 				<span class="menu-text"> Заказы </span>
@@ -66,6 +66,12 @@
 				</a>
 			</li>
 		<?php } ?>
+		<li>
+			<a href="<?=Helper_Url::routeUrl('usersInfo');?>">
+				<i class="menu-icon fa fa-tag"></i>
+				<span class="menu-text"> Сотрудники </span>
+			</a>
+		</li>
 	</ul><!-- /.nav-list -->
 	<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
 		<i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>

@@ -3,7 +3,7 @@
 $this->useLayout(
 	'manager/layout.html',
 	array(
-		'title' => 'Заказы',
+		'title' => "Заказы: $this->status",
 		'user' => $this->user,
 	)
 );
@@ -13,7 +13,12 @@ $this->useLayout(
 <div class="page-content">
 	<div class="page-header">
 		<h1>
-			Список последних заказов
+			Заказы
+			<small>
+				<i class="icon-double-angle-right"></i>
+				со статусом:
+				<?=Helper_Order::getStatusLabelById($this->statusId);?>
+			</small>
 		</h1>
 	</div>
 

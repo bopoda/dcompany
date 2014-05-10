@@ -28,6 +28,15 @@ body {
 	margin-left: 1px;
 	margin-right: 1px;
 }
+#orders-editable td.delivery_date, #add_delivery_date input {
+	font-size: 14px;
+	color:red;
+	font-weight:bold;
+}
+#orders-editable td.delivery_date input {
+	color:red;
+	font-weight:bold;
+}
 
 td.order input, td.order textarea {
 	float:left;

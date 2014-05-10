@@ -37,7 +37,7 @@ final class Table_Orders extends Dao_Table_MySQL
 		);
 	}
 
-	public function addOrder($orderRow)
+	public function addOrder(array $orderRow)
 	{
 		return $this->getAdapter()->query(
 			'INSERT INTO ?# (?#)
@@ -61,12 +61,13 @@ final class Table_Orders extends Dao_Table_MySQL
 		);
 	}
 
-	public function fetchByStatusIds(array $statusIds)
+	public function fetchByStatusIds(array $statusIds, $offset = 0, $limit = 100)
 	{
  		return $this->getAdapter()->select(
 			'SELECT * FROM ?#
 				WHERE status_id IN (?a)
-				ORDER BY id DESC',
+				ORDER BY id DESC
+				LIMIT ?d,?d',
 			$this->getTableName(),
 			$statusIds
 		);
@@ -86,6 +87,28 @@ final class Table_Orders extends Dao_Table_MySQL
 		);
 	}
 
+	public function fetchCountByUserId($userId, $statusId = NULL)
+	{
+		return $this->getAdapter()->selectCell(
+			'SELECT COUNT(*) FROM ?#
+				WHERE user_id = ?d
+				{AND status_id = ?d}',
+			$this->getTableName(),
+			$userId,
+			$statusId ? : DBSIMPLE_SKIP
+		);
+	}
+
+	public function fetchCountByStatusId($statusId)
+	{
+		return $this->getAdapter()->selectCell(
+			'SELECT COUNT(*) FROM ?#
+				WHERE status_id = ?d',
+			$this->getTableName(),
+			$statusId
+		);
+	}
+
 	public function updateField($id, $fieldName, $fieldValue)
 	{
 		return $this->getAdapter()->query(
@@ -98,6 +121,11 @@ final class Table_Orders extends Dao_Table_MySQL
 			date('Y-m-d H:i:s'),
 			$id
 		);
+	}
+
+	public function updateOrder(array $orderRow)
+	{
+		return $this->replaceRow('id', $orderRow);
 	}
 
 	public function getStatusByStatusId($statusId)
@@ -123,19 +151,6 @@ final class Table_Orders extends Dao_Table_MySQL
 		}
 		elseif ($status == 'closed') {
 			return self::STATUS_CLOSED;
-		}
-	}
-
-	public function getStatusDescription($status)
-	{
-		if ($status == 'private') {
-			return 'private - эти заказы видны только менеджеру, который их добавил, не видны сервисному центру.';
-		}
-		if ($status == 'pending') {
-			return 'pending - эти заказы ждут доставки клиенту, видны сервисному центру.';
-		}
-		elseif ($status == 'closed') {
-			return 'closed - эти заказы уже доставлены клиенту';
 		}
 	}
 

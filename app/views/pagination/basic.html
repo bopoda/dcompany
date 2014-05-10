@@ -1,0 +1,21 @@
+<ul class="pagination">
+	<li class="<?=$this->first_page ? NULL : 'disabled';?>">
+		<a href="<?=$this->page->url($this->first_page);?>">
+			<i class="ace-icon fa fa-angle-double-left"></i>
+		</a>
+	</li>
+
+	<?php for ($i = 1; $i <= $this->total_pages; $i++) { ?>
+		<?php if ($i == $this->current_page) { ?>
+			<li class="active"><a href="<?=$this->page->url($i);?>" title="Страница <?=$i;?>"><?=$i;?></a></li>
+		<?php } else { ?>
+			<li><a href="<?=$this->page->url($i);?>" title="Страница <?=$i;?>"><?=$i;?></a></li>
+		<?php } ?>
+	<?php } ?>
+
+	<li class="<?=$this->last_page ? NULL : 'disabled';?>">
+		<a href="<?=$this->page->url($this->last_page);?>">
+			<i class="ace-icon fa fa-angle-double-right"></i>
+		</a>
+	</li>
+</ul>

@@ -2,6 +2,13 @@ jQuery(function($) {
 
     $('textarea[class*=autosize]').autosize({append: "\n"});
 
+    $('.date-picker').datepicker({
+        autoclose: true,
+        todayHighlight: true
+    });
+
+    $('[data-rel=tooltip]').tooltip({container:'body'});
+
     // sidebar menu
     var pathname = window.location.pathname;
     $('#sidebar a').each(function() {
@@ -22,7 +29,8 @@ jQuery(function($) {
                 success: function(result) {
                     if (result.success) {
                         $('#main-container .col-xs-12').append(result.html);
-                        $('.date-picker').datepicker({
+                        $addOrderField = $('#newOrder');
+                        $addOrderField.find('.date-picker').datepicker({
                             autoclose: true,
                             todayHighlight: true
                         });
@@ -81,7 +89,7 @@ jQuery(function($) {
                 recalculateTotalPurchase($(_this).parents('td'));
             }
 
-        }, 100);
+        }, 90);
     });
 
     // изменение цены закупки
@@ -90,12 +98,15 @@ jQuery(function($) {
         var purchasePrice = recalculateTotalPurchase($orderTd);
     });
 
-    $('.order-enable-edit').click(function() {
+    // переход в режим редактирования заказа
+    $("#orders-editable").delegate( ".order-enable-edit", "click", function() {
         var tr = $(this).parents('tr');
 
+        tr.find('td.order .order-edit .order-position').not(":first-child").remove(); //удалить все кроме первого.
         var $orderPosition = tr.find('td.order .order-edit .order-position');
+
         // make order edit rows
-        tr.find('table.order-table tr').each(function(index) {
+        tr.find('table.order-table tr').not(":last-child").each(function(index) {
             var hardware = $(this).find('.hardware').text();
             var purchase = $(this).find('.purchase-price').text();
             var supplier = $(this).find('.supplier').text();
@@ -122,11 +133,50 @@ jQuery(function($) {
         tr.find('td.sale_price [name=sale_price]').val(tr.find('td.sale_price .order-text').text());
         tr.find('td.assembly_price [name=assembly_price]').val(tr.find('td.assembly_price .order-text').text());
         tr.find('td.delivery_price [name=delivery_price]').val(tr.find('td.delivery_price .order-text').text());
+        tr.find('[name=delivery_date]').val(tr.find('td.delivery_date .order-text .value').text());
 
         tr.find('td').each(function() {
             $(this).find('.order-text').hide();
             $(this).find('.order-edit').show();
         });
+
+        return false;
+    });
+
+    // редактирование заказа
+    $("#orders-editable").delegate( ".order-update", "click", function() {
+        var tr = $(this).parents('tr');
+
+        var serialized = tr.find(':input').serialize();
+
+        $.ajax({
+            url: '/ajax/order/update',
+            type: 'post',
+            data: serialized,
+            dataType: 'json',
+            success: function(result) {
+                if (result.success) {
+                    tr.replaceWith(result.orderHtmlRow);
+                }
+                else {
+                    console.log('error', result);
+                }
+            }
+        });
+
+        return false;
+    });
+
+    // отмена редактирования заказа
+    $("#orders-editable").delegate( ".order-update-cancel", "click", function() {
+        var tr = $(this).parents('tr');
+
+        tr.find('td').each(function() {
+            $(this).find('.order-text').show();
+            $(this).find('.order-edit').hide();
+        });
+
+        return false;
     });
 });
 

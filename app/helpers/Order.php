@@ -27,6 +27,19 @@ class Helper_Order
 		}
 	}
 
+	public static function getStatusLabelById($statusId)
+	{
+		if ($statusId == Table_Orders::STATUS_PRIVATE) {
+			return "<span data-rel='tooltip' data-original-title='" . Helper_Order::getStatusDescriptionById($statusId) . "' class='label label-inverse arrowed'>private</span>";
+		}
+		elseif ($statusId == Table_Orders::STATUS_PENDING) {
+			return "<span data-rel='tooltip' data-original-title='" . Helper_Order::getStatusDescriptionById($statusId) . "' class='label label-warning arrowed-in arrowed-in-right'>pending</span>";
+		}
+		elseif ($statusId == Table_Orders::STATUS_CLOSED) {
+			return "<span data-rel='tooltip' data-original-title='" . Helper_Order::getStatusDescriptionById($statusId) . "' class='label label-success'>closed</span>";
+		}
+	}
+
 	public static function getAllowedUserStatuses()
 	{
 		$user = Auth::instance()->getUser();
@@ -55,4 +68,16 @@ class Helper_Order
 		);
 	}
 
+	public static function getStatusDescriptionById($statusId)
+	{
+		if ($statusId == Table_Orders::STATUS_PRIVATE) {
+			return 'private - заказы видны только менеджеру, который их добавил, не видны сервисному центру.';
+		}
+		if ($statusId == Table_Orders::STATUS_PENDING) {
+			return 'pending - заказы ждут доставки клиенту, видны сервисному центру.';
+		}
+		elseif ($statusId == Table_Orders::STATUS_CLOSED) {
+			return 'closed - заказы уже доставлены клиенту.';
+		}
+	}
 }

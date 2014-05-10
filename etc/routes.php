@@ -34,7 +34,17 @@ return array(
 	'ajaxAddOrderHtml' => array(
 		'url' => '/ajax/order/addOrderHtml',
 		'controller' => 'Controller_Orders',
-		'action' => 'ajaxAddOrderHtml'
+		'action' => 'ajaxAddOrderHtml',
+	),
+	'ajaxOrderUpdate' => array(
+		'url' => '/ajax/order/update',
+		'controller' => 'Controller_Orders',
+		'action' => 'ajaxOrderUpdate',
+	),
+	'usersInfo' => array(
+		'url' => '/users/info',
+		'controller' => 'Controller_Users',
+		'action' => 'usersInfo',
 	),
 	'test' => array(
 		'url' => '/test',

@@ -1,0 +1,29 @@
+<table class="table table-stripped table-bordered" id="orders-editable">
+	<thead>
+	<tr>
+		<th title="Дата исполнения">
+			<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+			Дата
+		</th>
+		<th>Статус</th>
+		<th>Заказ</th>
+		<th>Продажа</th>
+		<th>Время выполнения</th>
+		<th>Контакты</th>
+		<th>Дополнительно</th>
+		<th>Адрес&nbsp;доставки</th>
+		<th>Сборка</th>
+		<th>Доставка</th>
+		<th>ФЗП</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+	<?php foreach ($this->orders as $order) { ?>
+		<?= $this->renderPartial('manager/order/parts/part-order-row.html', array(
+			'order' => $order,
+		));?>
+	<?php } ?>
+	</tbody>
+</table>
+<?=$this->pages;?>

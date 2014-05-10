@@ -1,0 +1,11 @@
+<div class="order-position action-buttons" style="height: 22px; width:465px;display: block;">
+	<textarea name="order-hardware[]" class="order-hardware" placeholder="железка" style="width: 325px; height: 18px; resize: none; color: #304346;"></textarea>
+	<input type="text" value="" name="order-purchase-price[]" class="input-small order-purchase-price" placeholder="закупка" style="width:40px;margin-left: 2px; margin-right: 2px;">
+	<input type="text" value="" name="order-supplier[]" class="input-small order-supplier" placeholder="поставщик" style="width:50px;">
+	<a class="green" href="#" style="margin-left: 3px;padding-top: 2px;" onclick="$(this).parents('.order-position').after($(this).parents('.order-position').clone()); return false;">
+		<i class="ui-icon ace-icon fa fa-plus center bigger-100 blue"></i>
+	</a>
+	<a class="red" href="#" style="padding-top: 2px;" onclick="if ($(this).parents('td').find('.order-position').length > 1 ) {var td=$(this).parents('td'); $(this).parents('.order-position').remove(); recalculateTotalPurchase(td);} return false;">
+		<i class="ace-icon fa fa-trash-o bigger-100"></i>
+	</a>
+</div>
